@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包-探索词法作用域模型</title>
+</head>
+<body>
+    <script>
+    // 1、修改词法作用域
+    function showName (str) {
+        eval(str)
+        console.log(name)
+    }
+
+    var name = 'xiuyan'
+    var str = 'var name = "BigBear"'
+
+    showName(str)
+
+    // 2、with对作用域的修改
+    var me = {
+        name: 'xiuyan',
+        career: 'coder',
+        hobbies: ['coding', 'football']
+    }
+
+    // 假如我们想输出对象me中的变量，没有with可能会这样做：
+    console.log(me.name)
+    console.log(me.career)
+    console.log(me.hobbies)
+
+    // 但with可以帮我们省去写前缀的时间
+    with(me) {
+        console.log(name)
+        console.log(career)
+        console.log(hobbies)
+    }
+
+    function changeName (person) {
+        with (person) {
+            name = 'BigBear'
+        }
+    }
+
+    var me = {
+        name: 'xiuyan',
+        career: 'coder',
+        hobbies: ['coding', 'football']
+    }
+
+    var you = {
+        career: 'product manager'
+    }
+    changeName(me)
+    console.log('改变name啦：', me.name)
+    changeName(you)
+    console.log(name)
+    </script>
+</body>
+</html>
