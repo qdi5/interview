@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>循环体与闭包</title>
+</head>
+<body>
+    <script>
+        for (var i = 0; i < 5; i++) {
+            setTimeout(function () {
+                console.log(i)
+            }, 1000) // 每一秒钟打印一个5
+        }
+        console.log(i) // 5  
+
+        function test () {
+            var num = []
+            var i 
+
+            for (i = 0; i < 10; i++) {
+                num[i] = function () {
+                    console.log('第二题：', i)
+                }
+            }
+            return num[9]
+        }
+
+        test()()
+
+
+        var test02 = (function(){
+            var num = 0
+            return () => {
+                return num++
+            }
+        }())
+
+        for (var i = 0; i < 10; i++) {
+            test02()
+        }
+
+        console.log('第三题：', test02())
+
+
+        // 10
+        // 10
+        /* 
+            this的特性：
+                没有arguments
+                this指向当前词法作用域的上层作用域
+
+        */
+    </script>
+</body>
+</html>
