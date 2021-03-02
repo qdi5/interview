@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包练习题</title>
+</head>
+<body>
+    <script>
+        function foo (a, b) {
+            debugger
+            console.log(b)
+            return {
+                foo: function(c) {
+                    debugger
+                    return foo(c, a)
+                }
+            }
+        }
+
+        // 第一题：
+       /*  var func1 = foo(0)  // undefined
+        /* 
+        {
+            foo: function(c) {
+                return foo(c,a)
+            }
+        } 
+        
+
+        func1.foo(1) 
+        /*
+            foo(1, 0) // 0
+        
+
+        func1.foo(2) 
+        /*
+            foo(2, 1) // 1
+        
+       func1.foo(3) 
+
+       /*
+           foo(3, 2) // 2
+       */
+       // 0: {},  a = 0； 输出undefined
+       // 1: 调用foo, c = 1； 输出undefined
+       // 2: {},    c = 2; 输出undefined
+       // 3: 调用foo  c= 3; 输出undefined
+       // var func2 = foo(0).foo(1).foo(2).foo(3) // undefined undefined   
+       var func3 = foo(0).foo(1) // undefined  0
+       func3.foo(2) // 1
+       func3.foo(3) // 1
+       console.log('什么鬼啊~')
+
+    </script>
+</body>
+</html>
