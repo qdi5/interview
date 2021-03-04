@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟call的实现</title>
+</head>
+<body>
+    <script>
+        /*  
+            1、所有函数能够直接调用myCall
+            2、改变this的指向为传递进来的参数对象
+            3、将除了第一个参数外的剩余参数传递给目标函数
+        */
+       /*
+       var name = 'this'
+       var me = {
+           name: 'wuzhe'
+       }
+       function showName () {
+           console.log(this.name)
+       }
+       showName.myCall(me) // 输出'wuzhe'
+       */
+
+       Function.prototype.myCall = function (context = window) {
+         context.func = this
+         context.func()
+         delete context.func
+       }
+
+       var name = 'this'
+       var me = {
+           name: 'wuzhe'
+       }
+       function showName () {
+           console.log(this.name)
+       }
+       showName.myCall(null) // 输出'wuzhe'
+
+
+    </script>
+</body>
+</html>
