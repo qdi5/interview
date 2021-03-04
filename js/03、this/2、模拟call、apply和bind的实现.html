@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟call的实现</title>
+</head>
+<body>
+    <script>
+        /*  
+            1、所有函数能够直接调用myCall
+            2、改变this的指向为传递进来的参数对象
+            3、将除了第一个参数外的剩余参数传递给目标函数
+        */
+       /*
+       var name = 'this'
+       var me = {
+           name: 'wuzhe'
+       }
+       function showName () {
+           console.log(this.name)
+       }
+       showName.myCall(me) // 输出'wuzhe'
+       */
+
+       Function.prototype.myCall = function (context = window, ...arg) {
+           let result
+           context.func = this
+           console.log(arg)
+           if (arg) {
+            result = context.func(...arg)
+           } else {
+               result = context.func()
+           }
+           delete context.func
+           return result
+       }
+
+       Function.prototype.myApply = function (context = window, arr = []) {
+           let result
+           context.func = this
+           if (arr && arr.length) {
+             result = context.func(...arr)
+           } else {
+             context.func()
+           }
+           
+           delete context.func
+           return result
+       }
+       // 返回一个绑定了指定this的新函数，剩余的参数将作为新函数的参数传递进去
+       Function.prototype.myBind = function (context = window, ...arg) {
+           return () => this.myCall(context, ...arg)
+       }
+       var name = 'this'
+       var me = {
+           name: 'motong'
+       }
+       function showName (a, b) {
+           console.log(this.name, a, b)
+       }
+       showName.myCall(me,'你很棒', '你知道吗') // 输出'wuzhe'
+       showName.myApply(me, ['你很优秀', '你知道吗'])
+       const module = {
+            x: 42,
+            getX: function(a, b, c) {
+                console.log(a,b,c)
+                return this.x;
+            }
+        };
+        const unboundGetX = module.getX;
+        console.log(unboundGetX()); // The function gets invoked at the global scope
+        // expected output: undefined
+
+        const boundGetX = unboundGetX.myBind(module, me.name, '你很优秀','你知道么');
+        console.log(boundGetX());
+    </script>
+</body>
+</html>
