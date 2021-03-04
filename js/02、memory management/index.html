@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内存管理</title>
+</head>
+<body>
+    <script>
+        let a = 0 // 栈
+        let b = 'Hello World' // 栈
+        let c = null // 栈
+        let d = { name: '修言' } // 堆
+        let e = ['修言','小明','bear'] // 堆
+
+        // 内存溢出
+        var theThing = null;
+
+        var replaceThing = function () {
+
+            var originalThing = theThing;
+
+            var unused = function () {
+                if (originalThing) // 'originalThing'的引用
+                console.log("嘿嘿嘿");
+            };
+
+            theThing = {
+                longStr: new Array(1000000).join('*'),
+                someMethod: function () {
+                    console.log("哈哈哈");
+                }
+            };
+
+        };
+        
+        setInterval(replaceThing, 1000);
+
+    </script>
+</body>
+</html>
