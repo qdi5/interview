@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this指向</title>
+</head>
+<body>
+    <script>
+        var a = 1
+        var obj = {
+            a: 2,
+            func2: () => {
+                console.log(this.a) // 1
+            },
+            
+            func3: function() {
+                console.log(this.a)
+            }
+        }
+
+        // func1
+        var func1  = () => {
+            console.log(this.a) // 1
+        }
+
+        // func2
+        var func2 = obj.func2
+        // func3
+        var func3 = obj.func3
+
+        func1() // 1
+        func2() // 1
+        func3() // 1
+        obj.func2() // 1
+        obj.func3() // 2
+    </script>
+</body>
+</html>
