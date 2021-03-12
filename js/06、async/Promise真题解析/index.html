@@ -9,9 +9,39 @@
 <body>
     <h2>问：说说你理解的Promise</h2>
     <p>代理对象、三个状态、状态切换机制</p>
-    Promise对象是一个代理对象。它接受你传入的executor
+    Promise对象是一个代理对象。它接受你传入的executor（执行器）作为入参，允许你把异步任务的成功和失败分别绑定到对应的处理方法上去。
+    一个Promise实例有三种状态：    
+    <p>pending状态，表示进行中。这是Promise实例创建后的一个初始态；</p>
+    <p>fulfilled状态，表示成功完成。这是我们在执行器中调用resolve后，达成的状态</p>
+    <p>rejected状态，表示操作失败、被拒绝。这是我们在执行器中调用reject后，达成的状态；</p>
+    <p>Promise实例的状态是可以改变的，但它只允许被改变一次。当我们的实例状态从pending切换为rejected后，就无法再扭转为 fulfilled，反之同理。当Promise的状态为resolved时，会
+        触发其对应的then方法入参里的onfulfilled函数；当Promise的状态为rejected时，会触发其对应的then方法入参里的onrejected函数。
+    </p>
+    <h2>Promise的出现是为了解决什么问题？</h2>
+    <p>
+        1、回调地狱
+        2、简化代码逻辑
+    </p>
+    <h2>Promise常见方法有哪些？各自是干嘛的？</h2>
+    <p>
+        Promise.all()
+        Promise.race()
+        Promise.reject()
+        Promise.resolve()
+    </p>
     <script>
+        // 01
+        const promise = new Promise((resolve, reject) => {
+            console.log(1);
+            resolve();
+            console.log(2);
+        });
 
+        promise.then(() => {
+            console.log(3);
+        });
+
+        console.log(4);
     </script>
 </body>
 </html>
