@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es6语法</title>
+</head>
+<body>
+    <script>
+        // 一、对象与数组的解构
+        // 1、数组的解构
+        var [a, b, c] = [1, 2, 3]
+        console.log(a, b, c)
+        // 通过给左侧变量数组设置空占位的方式，实现对数组中某几个元素的精准提取：
+        var [a, , c] = [4, 5, 6]
+        console.log(a, c)
+
+        // 2、对象的解构
+        const stu = {
+            name: 'Bob',
+            age: 24
+        }
+        var { name, age } = stu
+        console.log(name, age)
+
+        // 提取高度嵌套的对象里的指定属性
+        const school = {
+            classes: {
+                stu: {
+                    name: 'MR LIU',
+                    age: 34
+                }
+            }
+        }
+        var { classes: { stu: { name } } } = school
+        console.log(name)
+
+        // 解构同时重命名
+        var { classes: { stu: { name: newName } } } = school
+        console.log(newName)
+
+        // 3、...
+        // 3.1、扩展运算
+            // 对象扩展运算
+            /**
+             * 对象中的扩展运算符（...）用于取出参数对象中的所有可遍历属性，拷贝到当前对象之中。
+             * 
+             * **/
+            const me = {
+                name: 'xx',
+                age: 24
+            }
+
+            const meCopy = { ...me } // 等价于 Object.assign({}, me)
+            console.log('meCopy:\r\n', meCopy)
+            meCopy.age = 30
+            console.log('me:\r\n', me)
+
+            const you = {
+                name: 'xx',
+                age: 24
+            }
+            const you2 = Object.assign({}, you)
+            console.log(you2)
+            you.age = 30
+            console.log('you:\r\n', you)
+            console.log('you2:\r\n', you2.age)
+
+            // 数组扩展运算
+            // 在数组中，扩展运算可以将一个数组转为用逗号分隔的参数序列。
+            console.log(...['haha', 'hehe', 'xixi'])
+        
+            function mutiple (x, y) {
+                return x * y
+            }
+            const arr = [2, 3]
+            console.log(mutiple(...arr))
+
+            // 合并两个数组
+            const arr1 = [1,2,3,4]
+            const arr2 = [5,6,7,8]
+            const combineArr = [...arr1, ...arr2]
+            console.log(combineArr)
+        
+        // 3.2、rest参数（获取函数的多余参数；函数参数不确定的情况）
+            // 当扩展运算符被用在函数形参上时，它还可以把一个分离的参数序列整合成一个数组
+
+            function mutiple (...args) {
+                let result = 1
+                for (var val of args) {
+                    result *= val
+                }
+                return result
+            }
+            console.log(mutiple(1, 2, 3, 4)) // 24
+
+        // 4.类数组的转换
+           /* 
+            类数组对象的定义：
+            1.它必须是一个对象
+            2.它有length属性
+           */ 
+            
+           // 类数组 转换为 数组
+           const arrayLike = { 0: 'Bob', 1: 'Lucy', 2: 'Daisy', length: 3}
+           console.log(Array.prototype.slice.call(arrayLike))
+           console.log(Array.from(arrayLike))
+           // 扩展运算符————"..."也可以把类数组对象转换为数组，前提是这个类数组对象上部署了遍历器接口。
+           function demo() {
+               console.log('转换后的arguments对象', [...arguments])
+           }
+
+        // 5、模板语法与字符串处理
+        /* 模板字符串的关键优势有两个：
+           1、在模板字符串中，空格、缩进、换行都会被保留
+           2、模板字符串完全支持"运算"式的表达式，你可以在${}里完成一些计算
+        */
+    </script>
+</body>
+</html>
