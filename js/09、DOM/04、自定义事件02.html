@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义事件</title>
+    <style>
+        #divA,
+        #divB,
+        #divC {
+          width: 100px;
+          height:100px;
+        }
+        
+        #divA {
+          background-color: #333;   
+        }
+        
+        #divB {
+          background-color: #dd5990; 
+        }
+        
+        #divC {
+          background-color: #ccc990; 
+        }
+      </style>
+</head>
+<body>
+    <div id="divA">我是A</div>
+    <div id="divB">我是B</div>
+    <div id="divC">我是C</div>
+    <script>
+        var divA = document.getElementById('divA')
+        document.addEventListener('click', function () {
+            console.log('我是小A')
+        })
+
+        // 创建一个'clickA'事件
+        var clickAEvent = new Event('clickA')
+        var divB = document.getElementById('divB')
+        divB.addEventListener('clickA', function(e) {
+            console.log('我是小B，我感觉到了小A')
+            console.log(e.target)
+        })
+
+        var divC = document.getElementById('divC')
+        divC.addEventListener('clickA', function(e) {
+            console.log('我是小C，我感觉到了小A')
+            console.log(e.target)
+        })
+
+        divA.addEventListener('click', function() {
+            console.log('我是小A')
+            // 派发自定义事件
+            divB.dispatchEvent(clickAEvent)
+            divC.dispatchEvent(clickAEvent)
+        })
+    </script>
+
+
+</body>
+</html>
