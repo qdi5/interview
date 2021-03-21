@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue响应式原理</title>
+</head>
+<body>
+    <script>
+        // Object.defineProperty
+        const obj = {
+            name: 'xiuyan',
+            career: 'coder'
+        }
+
+        Object.defineProperty(obj, 'career', {
+            get () {
+                console.log(this)
+                console.log('尝试读取career')
+            },
+            set (newCareer) {
+                console.log(`修改career为${newCareer}`)
+            }
+        })
+
+        // 遍历所有的属性，给它们安装上getter/setter方法
+        class Observer {
+            constructor () {
+                observe(this.data)
+            }
+        }
+
+        function observe (data) {
+            // 取出所有的key
+            const keys = Object.keys(data)
+            // 遍历所有属性
+            for (let i = 0; i < keys.length; i++) {
+                defineReactive(obj, keys[i])
+            }
+        }
+
+        function defineReactive (obj, key, val) {
+            // 每一个属性都对应单独的Dep实例
+            const dep = new Dep()
+
+            Object.defineProperty(obj, key, {
+                enumerable: true,
+                configurable: true,
+                get () {
+                    dep.depend()
+                    return val
+                },
+                set (newVal) {
+                    if (newVal === val) return
+                    // 感知更新、通知watcher
+                    dep.notify()
+                }
+            })
+        }
+
+        class Dep {
+            constructor () {
+                // 存储 Watcher 实例的数组
+                this.subs = []
+            }
+
+            addSub (sub) {
+                this.subs.push(sub)
+            }
+
+            depend () {
+                // Dep.target实际上就是当前Dep对应的watcher
+                if (Dep.target) {
+                    // 把当前的dep实例关联到组件对应的watcher上去
+                    Dep.target.addDep(this)
+                }
+            }
+
+            // 通知watcher对象发生更新
+            notify () {
+                const subs = this.subs.slice()
+                // 这里 subs 的元素是watcher实例，逐个调用watcher实例的update方法
+                for (let i = 0, l = subs.length; i < l; i++) {
+                    subs[i].update()
+                }
+            }
+        }
+
+        class Watcher {
+            constructor () {
+                Dep.target = this
+            }
+            addDep (dep) {
+                dep.addSub(this)
+            }
+            update () {
+                // 更新视图
+                console.log('更新视图了')
+            }
+        }
+        var watcher = new Watcher()
+        
+    </script>
+</body>
+</html>
