@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在单击每一列的时候"提醒"其index</title>
+</head>
+<body>
+    <ul id="test">
+        <li>这是第一条</li>
+        <li>这是第二条</li>
+        <li>这是第三条</li>
+    </ul>
+    <script>
+        /* 默认情况下，每次输出都是3
+        const ulEle = document.getElementById('test')
+        const lisEles = ulEle.getElementsByTagName('li')
+        for (var i = 0; i < lisEles.length; i++) {
+            lisEles[i].onclick = function() {
+                console.log(i) 
+            }
+        } */
+
+        /* 1、解法一；使用let产生块级作用域
+        const ulEle = document.getElementById('test')
+        const lisEles = ulEle.getElementsByTagName('li')
+        for (let i = 0; i < lisEles.length; i++) {
+            lisEles[i].onclick = function() {
+                console.log(i)
+            }
+        }
+        */
+
+        /* 2、解法二；
+        2.1、使用立即执行函数产生块级作用域 
+        const ulEle = document.getElementById('test')
+        const lisEles = ulEle.getElementsByTagName('li')
+        for (var i = 0; i < lisEles.length; i++) {
+            lisEles[i].onclick = (function (i) {
+                return function() {
+                    console.log('啊哈前端2：', i)
+                }
+            })(i)
+        } 
+        
+        2.2、通过调用函数将i变成一个局部变量（原理跟上面的立即执行函数差不多）
+        function createHandleFn(i) {
+            return function () {
+                console.log('啊哈前端3：', i)
+            }
+        }
+        const ulEle = document.getElementById('test')
+        const lisEles = ulEle.getElementsByTagName('li')
+        for (var i = 0; i < lisEles.length; i++) {
+            lisEles[i].onclick = createHandleFn(i)
+        }
+        
+        */
+
+         /* 3、解法三；给dom元素新增一个属性index，并将索引存储进去
+        const ulEle = document.getElementById('test')
+        const lisEles = ulEle.getElementsByTagName('li')
+        for (var i = 0; i < lisEles.length; i++) {
+            lisEles[i].__index__ = i
+            lisEles[i].onclick = function() {
+                console.table(this)
+                console.log(this.__index__)
+            }
+        } */
+
+        
+
+    </script>
+</body>
+</html>
