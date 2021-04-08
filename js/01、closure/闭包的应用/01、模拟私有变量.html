@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟私有变量</title>
+</head>
+<body>
+    <p>
+        <strong>1、在软件世界中，只要是依赖人的意志才可以确保其安全稳定的东西，都是不可靠的。需要在从代码层面去保护password</strong>
+    </p>
+    <p>
+        <strong>2、仅在对象内部生效，无法从外部触及，这样的变量，就是私有变量。</strong>
+    </p>
+    <script>
+        /* function Dog (name) {
+            this.name = name
+        }
+
+        Dog.prototype.showName = function () {
+            console.log(this.name)
+        }
+
+        var dog = new Dog('哈士奇')
+        dog.showName() */
+
+        /* class Dog {
+            constructor (name) {
+                this.name = name
+            }
+
+            showName () {
+                console.log(this.name)
+            }
+        }
+
+        let dog = new Dog('哈士奇2')
+        dog.showName() */
+
+        // es6 class
+        /* class User {
+            constructor (username, password) {
+                this.username = username
+                this.password = password
+            }
+
+            login () {
+                fetch('/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        username,
+                        password
+                    })
+                }).then(res => res.json())
+            }
+        }
+
+        let user02 = new User('wuzhe', '123456')
+        console.log(user02.login)
+        console.log(user02.password) */
+
+        // 利用闭包生成IIFE，返回User类
+        const User = (function () {
+            // 定义私有变量_password
+            let _password
+
+            class User {
+                constructor (username, password) {
+                    _password = password
+                    this.username = username
+                }
+
+                login () {
+                    console.log(this.username, _password)
+                }
+            }
+
+            return User
+        })()
+
+        let user = new User('xiuyan', 'xiuyan123')
+
+        console.log(user.username)
+        console.log(user.password)
+        console.log(user._password)
+        user.login()
+        console.log(user)
+
+
+    </script>
+</body>
+</html>
