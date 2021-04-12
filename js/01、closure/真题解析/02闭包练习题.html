@@ -4,33 +4,104 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>闭包练习题</title>
+    <title>闭包的应用</title>
 </head>
 <body>
     <script>
-        function foo (a, b) {
-            console.log(b)
+        function foo(a,b){
+            console.log(b);
             return {
-                foo: function(c) {
-                    return foo(c, a)
+                foo:function(c){
+                    return foo(c,a);
                 }
             }
         }
-        // 第一题 
-        // { foo: function (c) { return foo(c, a) } } a = 0 
-        /* 
-            var func1 = foo(0) // undefined 这里返回了一个对象，对象里的函数引用了上层作用域foo的a变量，形成了闭包
-            func1.foo(1)  // 0 
-            func1.foo(2)  // 0
-            func1.foo(3)  // 0
-        */    
-        // 第二题
-        // var func2=foo(0).foo(1).foo(2).foo(3) // undefined 0 1 2
-        // 第三题
-        // { a=1 b=0 { foo: function (c) { return foo(c,a) } } } 匿名函数引用了上层作用域变量a，形成闭包
-        var func3 = foo(0).foo(1) // undefined 0
-        func3.foo(2) // 1
-        func3.foo(3) // 1
+        console.log('---------第一题---------')
+        // 第一题：
+        var func1=foo(0);  // undefined
+        /*
+            {
+                foo: function (c) {
+                    // 静态词法作用域；(这里的a就是0)；
+                    // 每次调用func1.foo方法，都会去找闭包里的a，也就是0
+                    return foo(c, 0)
+                }
+            }
+        
+        */
+
+        func1.foo(1);  // 也就是调用：foo(1, 0) 0
+        func1.foo(2);  // 也就是调用：foo(2, 0) 0
+        func1.foo(3);  // 也就是调用：foo(3, 0) 0
+        
+       
+        console.log('---------第二题---------')
+        // 第一题答案：undefined、0、0、0
+        
+        // 第二题：
+        var func2=foo(0).foo(1).foo(2).foo(3);
+        
+        // 第一步：foo(0)；也就是调用:foo(0,undefined)
+        // 输出：undefined
+        /* 返回：
+            {
+                foo: function (c) {
+                    return foo(c, 0)
+                }
+            }
+        */
+       // 第二步：foo(0).foo(1)；也就是调用:foo(1,0)
+       // 输出： 0
+       /*
+            返回：
+            {
+                foo: function (c) {
+                    return foo(c, 1)
+                }
+            }
+       */
+
+       // 第三步：foo(0).foo(1).foo(2)；也就是调用:foo(2,1)
+       // 输出：1
+       /*
+            返回：
+              {
+                  foo: function (c) {
+                    return foo(c, 2)
+                  }
+              }
+       */
+
+       // 第四步：foo(0).foo(1).foo(2).foo(3)；也就是调用:foo(3,2)
+       // 输出：2
+
+       /*
+              返回：
+              {
+                foo: function (c) {
+                    return foo(c, 3)
+                }
+              }
+       */
+       
+       // 第二题答案：undefined、0、1、2
+
+        console.log('---------第三题---------')
+        // 第三题：
+        var func3=foo(0).foo(1);
+        // 输出：undefined、0
+        /*
+            {
+                foo: function (c) {
+                    return foo(c,1)
+                }
+            }       
+        */
+        func3.foo(2); // 也就是调用: foo(2, 1)
+        // 1
+        func3.foo(3); // 也就是调用：foo(3, 1)
+        // 1
+        
     </script>
 </body>
 </html>
