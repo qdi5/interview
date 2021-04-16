@@ -35,7 +35,7 @@
         console.log(res4)
     }
 ```    
-封装一个运行生成器的简单版函数；标准版的封装，可以查看[co](https://github.com/tj/co)库。反复调用调用迭代器的next方法、直到返回值中的done为true为止。
+封装一个运行生成器的简单版函数；标准版的封装，可以查看[co](https://github.com/tj/co)库。反复调用迭代器的next方法、直到返回值中的done为true为止。
 ```js
     function runGenerator (gen) {
         var it = gen(), ret

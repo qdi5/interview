@@ -30,7 +30,7 @@
         Promise.resolve()
     </p>
     <script>
-        // 01
+        // 01、Promise.then是异步处理的
         const promise = new Promise((resolve, reject) => {
             console.log(1);
             resolve();
@@ -42,6 +42,27 @@
         });
 
         console.log(4);
+
+        // 02、Promise的状态智能改变一次
+        const promise = new Promise((resolve, reject) => {
+            resolve('第1次resolve')
+            console.log('resolve后的普通逻辑')
+            reject('error')
+            resolve('第二次resolve')
+        })
+
+        promise.then(res => {
+            console.log('then:', res)
+        }).catch(err => {
+            console.log('catch:', err)
+        })
+
+        // 03、Promise的值穿透
+        Promise.resolve(1)
+        .then(Promise.resolve(2))
+        .then(3)
+        .then()
+        .then(console.log)
     </script>
 </body>
 </html>
