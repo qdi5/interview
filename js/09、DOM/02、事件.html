@@ -5,18 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOM事件</title>
+    <style>
+        #outer {
+            padding: 50px;
+            background-color: red;
+        }
+        #button {
+            padding: 25px;
+            background-color: green;
+        }
+    </style>
 </head>
 <body>
-    <div class="outer">
+    <div class="outer" id="outer">
         <div id="button">点击我</div>
     </div>
     <script>
         function clickProcessor(event) {
-            console.log(event);
+            console.log('button元素触发了click');
+            console.log(this === event.currentTarget)
+            console.log(event.currentTarget === event.target)
         }
         const button = document.getElementById('button')
+        const outer = document.getElementById('outer')
+        // 使用捕获监听事件时，点击button，先触发outer的事件，再触发button的事件
+        /* button.addEventListener('click', clickProcessor, true)
+        outer.addEventListener('click', function (event) {
+            console.log('outer元素触发了click')
+        }, true) */
+
+        // 使用冒泡监听事件时，点击button，先触发button事件，再触发outer的事件
         button.addEventListener('click', clickProcessor)
-        
+        outer.addEventListener('click', function (event) {
+            console.log('outer元素触发了click')
+            console.log(this === event.currentTarget)
+            console.log(event.currentTarget, event.target, event.currentTarget === event.target)
+        })
     </script>
 </body>
 </html>
