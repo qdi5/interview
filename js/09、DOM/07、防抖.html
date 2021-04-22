@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖</title>
+</head>
+<body style="height: 1000000px">
+    <script>
+      function now () {
+          return Date.now()
+      }
+     
+      function debounce(func, wait, immediate) {
+        var timeout, previous, args, result, context;
+        var later = function() {
+            /* 
+                
+                如果用户频繁触发事件，previous值是实时更新的，passed会；
+                如果用户触发一次事件后，没有继续触发事件，
+                则这个值是固定的，那么这个passed的值会越来越大，终有一刻，它会大于wait
+            */
+            var passed = now() - previous
+            console.log(`passed:${passed},wait:${wait};wait=passed:${ wait === passed }`)
+            var remaining = wait - passed
+            if (remaining > 0) {
+                console.log('频繁触发事件')
+                // 递归调用？
+                timeout = setTimeout(later, remaining);
+            } else {
+                console.log('准备执行函数咯')
+                timeout = null;
+                result = func.apply(context, args);
+                if (!timeout) args = context = null;
+            }
+        };
+        var debounced = function() {
+            context = this;
+            args = arguments;
+            // 每次触发事件，都更新previous的值
+            previous = now();
+            console.log(`触发了，${timeout}`)
+            if (!timeout) {
+                console.log('设置定时器')
+                /* 
+                    正常情况下（只触发了一次事件），wait毫秒后，执行了func，理论上passed === wait；
+                    非正常情况下（在wait时间内频繁触发事件），previous不断
+                    更新为当前时间，导致passed的值一定小于wait（假设previous的最初值是s，
+                    最后一次触发事件的时间是t，已知s + wait > t > s;执行later函数的时间为y，
+                    默认情况下y - s = wait，y = s + wait,那么 y > t > s;所以0 < y - t < wait；
+                    而y - t = passed，所以0 < passed < wait）
+                */
+                timeout = setTimeout(later, wait);
+            }
+            return result;
+        };
+        return debounced;
+      }
+
+    let index = 0
+    const handleFn = debounce(function() {
+        console.log(++index)
+        console.log('--------------------------------------------------')
+    }, 1000)
+
+    window.addEventListener('scroll', handleFn)
+    </script>
+</body>
+</html>

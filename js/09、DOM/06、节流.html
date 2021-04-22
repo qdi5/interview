@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>节流和防抖</title>
+    <title>节流</title>
 </head>
 <body style="height: 1000000px">
     <script>
@@ -27,7 +27,7 @@
         document.addEventListener('scroll', better_scroll)
 
         // debounce：最后一个人说了算；
-        function debounce(fn, delay) {
+       /*  function debounce(fn, delay) {
             let timer =null
 
             return function () {
@@ -43,7 +43,7 @@
         }
 
         const better_scroll2 = debounce(() => console.log('debounce触发了滚动事件'), 1000)
-        document.addEventListener('scroll', better_scroll2)
+        document.addEventListener('scroll', better_scroll2) */
     </script>
 </body>
 </html>
