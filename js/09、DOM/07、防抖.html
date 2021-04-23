@@ -44,12 +44,12 @@
             if (!timeout) {
                 console.log('设置定时器')
                 /* 
-                    正常情况下（只触发了一次事件），wait毫秒后，执行了func，理论上passed === wait；
-                    非正常情况下（在wait时间内频繁触发事件），previous不断
-                    更新为当前时间，导致passed的值一定小于wait（假设previous的最初值是s，
-                    最后一次触发事件的时间是t，已知s + wait > t > s;执行later函数的时间为y，
-                    默认情况下y - s = wait，y = s + wait,那么 y > t > s;所以0 < y - t < wait；
-                    而y - t = passed，所以0 < passed < wait）
+                    1、只触发了一次事件的情况下，wait毫秒后，执行了func，第一次执行later时，
+                    passed = wait + 代码执行时间，所以passed > wait，那么直接执行func函数；
+                    2、在wait时间内频繁触发事件，previous不断更新为当前时间，导致passed的值极小，
+                    如果passed大于wait（只有在wait设置的值特别小时，才会出现），那么就直接执行了func函数；
+                    如果passed小于wait，那么又进入定时器，定时器的时间是wait - passed，递归调用later函数，
+                    循环当前步骤，直到passed大于wait，进入执行func函数的逻辑；
                 */
                 timeout = setTimeout(later, wait);
             }
