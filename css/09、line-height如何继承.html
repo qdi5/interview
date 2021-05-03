@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>line-height如何继承</title>
+    <style>
+        body {
+            font-size: 20px;
+            /* 20 * 200% = 40px */
+            line-height: 200%;
+        }
+        p {
+            /* p元素直接继承body计算出来的line-height的具体数值：40px */
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <p>写具体数值，如30px，则继承该值</p>
+    <p>写比例，如2/1.5，则继承该比例</p>
+    <p>写百分比，如200%，则继承计算出来的值；</p>
+</body>
+</html>

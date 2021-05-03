@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border: 1px solid red;
+            margin: 10px;
+        }
+        .p1, .p2, .p3, .p4, .p5 {
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+        .p1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -100px;
+        }
+        .p2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .p3 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+        .wrap.table {
+            display: table;
+        }
+        .table-cell {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .p4 {
+            margin: 0 auto;
+        }
+        .wrap.flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>1、绝对定位 + 负margin</h2>
+    <div class="wrap">
+        <div class="p1"></div>
+    </div>
+    <h2>2、绝对定位 + transform</h2>
+    <div class="wrap">
+        <div class="p2"></div>
+    </div>
+    <h2>3、绝对定位 + margin:auto</h2>
+    <div class="wrap">
+        <div class="p3"></div>
+    </div>
+    <h2>4、display: table-cell</h2>
+    <div class="wrap table">
+        <div class="table-cell">
+            <div class="p4"></div>
+        </div>
+    </div>
+    <h2>5、flexbox</h2>
+    <div class="wrap flex">
+        <div class="p5">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写js深拷贝</title>
+</head>
+<body>
+    <script>
+        const isArray = Array.isArray || function(arr) {
+            return Object.prototype.toString.call(arr) === '[object Array]'
+        }
+        /* 
+            clone(target, isDeep) 
+            拷贝一个target对象，isDeep表示是否深拷贝
+        */
+        function clone (target, isDeep) {
+            // 基本数据类型，直接返回值
+            if (typeof target !== 'object' || target === null) {
+                return target
+            }
+            console.log(`是不是数组：${isArray(target)}`)
+            const obj = isArray(target) ? [] : {}
+            for (let prop in target) {
+                // 只拷贝对象自身的属性
+                if (target.hasOwnProperty(prop)) {
+                    if (isDeep) {
+                        obj[prop] = clone(target[prop], isDeep)
+                    } else {
+                        obj[prop] = target[prop]
+                    }
+                }
+            }
+            return obj
+        }
+
+        var obj = {
+            a: 1,
+            b: 2,
+            c: {
+                d: 3,
+                e: {
+                    f: 4
+                }
+            }
+        }
+
+        var arr = [5,6,7,[8,9,10]]
+        const clonedA = clone(obj)
+        console.log('浅拷贝对象：', clonedA.c === obj.c)
+        const clonedB = clone(obj, true)
+        console.log('clonedB', clonedB)
+        console.log('深拷贝对象：', clonedB.c.e === obj.c.e)
+
+        const clonedC = clone(arr, true)
+        console.log('深拷贝数组：', clonedC)
+        clonedC[3][0] = 33
+        console.log(arr[3][0]) // 8
+    </script>
+</body>
+</html>
