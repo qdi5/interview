@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFC</title>
+    <style>
+       .container {
+           border: 1px solid blue;
+       }
+       img {
+           float: left;
+       }
+       .bfc {
+           overflow: hidden;
+       }
+    </style>
+</head>
+<body>
+    <p>float不是none</p>
+    <p>position是absolute或fixed</p>
+    <p>overflow不是visible</p>
+    <p>display是flex inline-block</p>
+    <div class="container bfc">
+        <img src="https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png" width="200px" alt="">
+        <p class="txt bfc">这是一段文字……</p>
+    </div>
+</body>
+</html>
