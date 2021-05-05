@@ -38,16 +38,7 @@
        }
 
        Function.prototype.myApply = function (context = window, arr = []) {
-           let result
-           context.func = this
-           if (arr && arr.length) {
-             result = context.func(...arr)
-           } else {
-             context.func()
-           }
-           
-           delete context.func
-           return result
+           return this.myCall(context, ...arr)
        }
        // 返回一个绑定了指定this的新函数，剩余的参数将作为新函数的参数传递进去
        Function.prototype.myBind = function (context = window, ...arg) {
