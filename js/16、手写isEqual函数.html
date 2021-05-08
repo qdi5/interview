@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>isEqual函数</title>
+</head>
+<body>
+    <script>
+        /*
+            isEqual:
+                1、基本数据类型；直接用"==="判断
+                2、对象或数组；
+                    2.1、判断属性个数是否相等；如果相等，则执行下一步；否则，返回false；
+                    2.2、递归比较每一个属性的值是否相等；（有可能属性值是引用类型，所以需要递归比较）
+        */
+        // 判断是不是对象
+        function isObject (target) {
+            return typeof target === 'object' && target !== null
+        }
+        function isEqual (target, obj) {
+            // 如果是基本数据类型
+            if (!isObject(target) || !isObject(obj)) {
+                return target === obj
+            }
+
+            // 如果是引用类型
+            if (target === obj) {
+                return true
+            }
+
+            // 判断属性个数是否相等
+            if (Object.keys(target).length !== Object.keys(obj).length) {
+                return false
+            }
+
+            // 判断属性对应的值是否相等
+            for (let prop in target) {
+                if (target.hasOwnProperty(prop)) {
+                      if (!isEqual(target[prop], obj[prop])) {
+                          return false  
+                      }
+                }
+            }
+
+            // 能走到这里来，说明上面的for循环里面没有执行return；说明两个对象的属性对应的所有值都相等；所以最后返回true就好了
+            return true
+        }
+        // 测试
+        const obj1 = {
+            a: 100,
+            b: {
+                x: 100,
+                y: 300
+            }
+        }
+        const obj2 = {
+            a: 100,
+            b: {
+                x: 100,
+                y: 300
+            }
+        }
+        // console.log( obj1 === obj2 )
+        console.log( isEqual(obj1, obj2) )
+
+        const arr1 = [[1,2], 2, 3, 4]
+        const arr2 = [[1,2], 2, 3, 4]
+        console.log(isEqual(arr1, arr2))
+
+    </script>
+</body>
+</html>

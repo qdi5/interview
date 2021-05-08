@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flatten将一个多维数组变成一个一维数组</title>
+</head>
+<body>
+    <script>
+        // 将一个多维数组变成一个一维数组
+        /*
+            1、利用apply可以将一个数组或类数组转换成多个参数的特点
+            function fn(a,b,c) {console.log(a,b,c)}
+            fn.apply(this, [1,2,3]) // 输出 1,2,3
+            2、利用concat可以合并数组里的元素（可以接收多个参数，参数可以是单个值或数组）
+            例如：[].concat(4,5,[7],[8,9]) // [4,5,7,8,9]
+            3、[].concat.apply([], [1,2,[3],[4,[5]]])
+            相当于：[].concat(1,2,[3],[4,[5]]) // [1,2,3,4,[5]]
+        */
+        function myFlat(arr) {
+            if (!arr instanceof Array) {
+                return arr
+            }
+            let res = [].concat.apply([], arr)
+            for (let i of res) {
+                console.log(i)
+                if (i instanceof Array) {
+                    res = flat(res)
+                }
+            }
+            return res
+        }
+
+        function flat(arr) {
+            const isDeep = arr.some(item => item instanceof Array)
+            if (!isDeep) {
+                return arr
+            }
+            const res = [].concat.apply([], arr)
+            return flat(res)
+        }
+
+
+        console.log(flat([1,2,[3,4,[5,6,[7,[8,[9,[10]]]]]]]))
+
+        const res = flat( [1, 2, [3, 4, [10, 20, [100, 200]]], 5] )
+        console.log(res)
+    </script>
+</body>
+</html>
