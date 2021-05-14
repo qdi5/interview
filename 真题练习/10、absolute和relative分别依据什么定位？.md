@@ -1,0 +1,2 @@
+absolute依据祖先元素中第一个position的值不为static的元素定位
+relative相对元素自身定位

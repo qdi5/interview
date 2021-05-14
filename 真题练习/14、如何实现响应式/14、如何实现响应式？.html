@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何实现响应式？</title>
+    <style>
+        :root {
+            font-size: 20px;
+            /* 在iphone6的屏幕下，约等于20px */
+            font-size: 5.333333vw; 
+        }
+        /* iphone5及以下 */
+        @media screen and (max-width: 320px) {
+            html {
+                font-size: 17.06667px;
+            }
+        }
+        .box {
+            width: 100rem;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        // rem
+        function setRem () {
+            const w = document.documentElement.offsetWidth
+            document.documentElement.style.fontSize = w / 100
+        }
+        window.addEventListener('resize', setRem)
+
+    </script>
+</body>
+</html>

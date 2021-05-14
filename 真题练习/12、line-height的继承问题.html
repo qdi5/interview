@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-size: 20px;
+        }
+        p {
+            font-size: 20px;
+        }
+        .one {
+            line-height: 30px;
+        }
+        .two {
+            line-height: 1.5; /* 1.5 * 20 = 30px */
+        }
+        .three {
+            line-height: 200%; /* 2 * 20 =  40px */
+        }
+    </style>
+</head>
+<body>
+    当前元素的父元素line-height的值是px，则继承的值就是对应的px；
+    当前元素的父元素line-height的是小数，则继承这个比例，如1.5
+    当前元素的父元素line-height的是%，则继承父元素 line-height * font-size 计算出来的值
+    <div class="one">
+        <p class="text">继承的line-height是px</p>
+    </div>
+    <div class="two">
+        <p class="text">继承的line-height是小数</p>
+    </div>
+    <div class="three">
+        <p class="text">继承的line-height是百分比</p>
+    </div>
+
+</body>
+</html>
+
+
+
