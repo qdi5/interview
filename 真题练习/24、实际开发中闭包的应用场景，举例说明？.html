@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实际开发过程中闭包的应用场景，举例说明</title>
+</head>
+<body>
+    <script>
+        // 私有变量
+        function login () {
+            let password = '123'
+            return {
+                getPwd () {
+                    return password
+                },
+                setPwd (newPwd) {
+                    password = newPwd
+                },
+            }
+        }
+        const lg = login()
+        console.log(lg.getPwd())
+        lg.setPwd('345')
+        console.log(lg.getPwd())
+
+        /**
+         *  省和市
+         * */
+        function getPosition(provice, city) {
+            return `${provice}${city}`
+        }
+        getPosition('湖北省', '天门市')
+        getPosition('湖北省', '仙桃市')
+        getPosition('湖北省', '随州市')
+        getPosition('湖北省', '宜昌市')
+        getPosition('湖北省', '武汉市')
+        getPosition('广东省', '深圳市')
+        getPosition('广东省', '广州市')
+        getPosition('广东省', '惠州市')
+        getPosition('广东省', '佛山市')
+
+        // 偏函数/柯里化
+        function partial(provice) {
+            return function (city) {
+                return provice + city
+            }
+        }
+        // 34个省
+        const hubei = partial('湖北省')
+        console.log(hubei('天门市'))
+        console.log(hubei('仙桃市'))
+        console.log(hubei('随州市'))
+        console.log(hubei('宜昌市'))
+        console.log(hubei('武汉市'))
+        const guangdong = partial('广东省')
+        console.log(guangdong('深圳市'))
+        console.log(guangdong('广州市'))
+        console.log(guangdong('惠州市'))
+        console.log(guangdong('佛山市'))
+    </script>
+</body>
+</html>

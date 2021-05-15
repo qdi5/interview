@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+          bind给函数绑定this
+          返回一个函数
+        */
+        Function.prototype.myBind = function (context, ...args) {
+            context = context || window
+            // 给this绑定指定的context
+            return () => {
+                context.__tempProp__ = this
+                context.__tempProp__(...args)
+                delete context.__tempProp__
+            }
+        }
+
+        function b (a,b) {
+            console.log(a,b,this.name)
+        }
+
+        const target = {
+            name: 'heihei'
+        }
+
+        b.myBind(null, '你好啊', 'bind')()
+    </script>
+</body>
+</html>

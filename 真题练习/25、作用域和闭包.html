@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域和闭包</title>
+</head>
+<body>
+    <script>
+        /**
+            let i, a
+            for (i = 0; i < 10; i++) {
+                a = document.createElement('p')
+                a.style.border = '1px solid red'
+                a.innerHTML = i + '<br>'
+                a.addEventListener('click', function (e) {
+                    e.preventDefault()
+                    alert(i)
+                })
+                document.body.appendChild(a)
+            }
+        **/
+        /* 解法一 利用let的块级作用域 */
+        /* let a
+        for (let i = 0; i < 10; i++) {
+            a = document.createElement('p')
+            a.style.border = '1px solid red'
+            a.innerHTML = i + '<br>'
+            a.addEventListener('click', function (e) {
+                e.preventDefault()
+                alert(i)
+            })
+            document.body.appendChild(a)
+        }
+ */
+            /* 解法二 闭包*/
+            /* let i, a
+            for (i = 0; i < 10; i++) {
+                a = document.createElement('p')
+                a.style.border = '1px solid red'
+                a.innerHTML = i + '<br>'
+                const fn = (function(i){
+                    console.log(i)
+                    return function (e) {
+                        e.preventDefault()
+                        alert(i)
+                    }
+                })(i)
+                a.addEventListener('click', fn)
+                document.body.appendChild(a)
+            }
+ */
+            /* 同上，只不过是自执行函数，换成了函数调用 */
+            /* let i, a
+            for (i = 0; i < 10; i++) {
+                a = document.createElement('p')
+                a.style.border = '1px solid red'
+                a.innerHTML = i + '<br>'
+                const fn = function(i){
+                    console.log('i:', i)
+                    return function (e) {
+                        e.preventDefault()
+                        alert(i)
+                    }
+                }
+                a.addEventListener('click', fn(i))
+                document.body.appendChild(a)
+            } */
+
+            for (i = 0; i < 10; i++) {
+                a = document.createElement('p')
+                a.style.border = '1px solid red'
+                a.innerHTML = i + '<br>'
+                !(function(i){
+                    console.log('current:', i)
+                    a.addEventListener('click',  function (e) {
+                        e.preventDefault()
+                        alert(i)
+                    })
+                })(i)
+                
+                document.body.appendChild(a)
+            }
+    </script>
+</body>
+</html>

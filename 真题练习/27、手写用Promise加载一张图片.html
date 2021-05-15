@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写用Promise加载一张图片</title>
+</head>
+<body>
+    <script>
+        const imgSrc = 'https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png'
+        function loadImg (src) {
+            const success = []
+            const failed = []
+            const pmArr = []
+            function getPromise(src) {
+                if (typeof src !== 'string') {
+                    return Promise.reject(`${src} is invalid`)
+                }
+                return new Promise((resolved, reject) => {
+                    const img = new Image()
+                    img.src = src
+                    img.onload = function(data) {
+                        resolved(img)
+                    }
+                    img.onerror = function(e) {
+                        reject(e)
+                    }
+                })
+            }
+            if (typeof src === 'string') {
+                pmArr.push(getPromise(src))
+            } else if (src instanceof Array) {
+                
+                for (let prop of src) {
+                    // [new Promise(), pmArr.push(Promise.resolve({success, failed}))]
+                    pmArr.push(getPromise(prop)) // 1、 pmArr.push(loadImg(src))
+                }
+               
+            }
+            pmArr.forEach((element, index) => {
+                    element.then(img => {
+                        console.log(`第${index + 1}张图片加载成功了`)
+                        success.push({index: index + 1, img})
+                    }).catch(e => {
+                        failed.push({index: index + 1, src: src[index]})
+                        console.log(`第${index + 1}张图片加载失败了`)
+                    })
+                })
+            return Promise.resolve({success, failed})
+            
+        }
+       /*  loadImg(imgSrc).then(data => {
+            console.log(data)
+            document.body.append(data)
+        }).catch(e => {
+            console.log(e)
+        }) */
+
+        const imgArr = ['https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png']
+        loadImg(imgArr).then(data => {
+            console.log(data)
+        })
+    </script>
+</body>
+</html>

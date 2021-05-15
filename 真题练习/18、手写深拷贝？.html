@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写深拷贝</title>
+</head>
+<body>
+    <script>
+        /**
+         * target：目标对象或数组
+         * isDeep：是否深拷贝
+         * 
+         * */        
+        function clone (target, isDeep) {
+            // 基本数据类型，直接返回
+            if (typeof target !== 'object' || target === null) {
+                return target
+            }
+            // 对象或数组类型
+            const result = target instanceof Array ? [] : {}
+            for (let prop in target) {
+                if (target.hasOwnProperty(prop)) {
+                    result[prop] = isDeep ? clone(target[prop], isDeep) : target[prop]
+                }
+            }
+            return result
+        }
+
+        const obj = {
+            a: 1,
+            b: {
+                name: 'wz'
+            }
+        }
+
+        const arr = [1,2,3, {a: 4, b: 5}]
+
+        const objShallowClone = clone(obj)
+        console.log(objShallowClone, obj.b === objShallowClone.b)
+        const objDeepClone = clone(obj, true)
+        console.log(objDeepClone, obj.b === objDeepClone.b)
+
+        const arrShallowClone = clone(arr)
+        console.log(arrShallowClone[3], arr[3] === arrShallowClone[3])
+        const arrDeepClone = clone(arr, true)
+        console.log(arrDeepClone, arrDeepClone[3], arr[3] === arrDeepClone[3])
+
+        
+
+        
+
+    </script>
+</body>
+</html>

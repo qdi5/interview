@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this的不同应用场景</title>
+</head>
+<body>
+    <script>
+        console.log(this) // window
+        !(function test () {
+            'use strict'
+            console.log(this) // 默认window，在严格模式下，是undefined
+        })()
+
+        var obj = {
+            test () {
+                console.log(this)
+            },
+            a: 'haha'
+        }
+
+        obj.test()
+
+        setTimeout(function(){
+            'use strict'
+            console.log(this) // window
+        }, 10)
+
+        function Person () {
+            this.name = 'haha'
+            this.age = 18
+        }
+        Person.prototype = {
+            sayHi () {
+                console.log('hi')
+            }
+        }
+        let newObj = new Person()
+        console.log(newObj)
+        console.log('__proto__', newObj.__proto__ === Person.prototype)
+        console.log(newObj.prototype)
+        const testArrowObj = {
+            name: '箭头函数',
+            testArrowFn () {
+                return function ()  { console.log(this, this.name)}
+            }
+        }
+        testArrowObj.testArrowFn()()
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+String、Number、Boolean、Symbol、undefined、Function、Object
