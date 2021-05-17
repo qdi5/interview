@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无限下拉的图片列表，如何监听每个图片的点击？</title>
+    <style>
+        img {
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <img src="https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png" alt="">
+        </li>
+        <li>
+            <img src="https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png" alt="">
+        </li>
+        <li>
+            <img src="https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png" alt="">
+        </li>
+    </ul>
+    <script src="./libs/event.js"></script>
+    <script src="./libs/loadImg.js"></script>
+    <script>
+        let status = 'initial'
+        bindEvent(window,'scroll', function(e){
+            // console.log(this)
+            const isReached = isReachedBottom(this.documentElement)
+            console.log('isReached:\r\n', isReached, status)
+            if (isReached && (status === 'loaded' || status === 'initial')) {
+                status = 'pending'
+                console.log('加载图片啦……')
+                loadImg(`https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png?time=${+new Date()}`).then(({ success }) => {
+                    const ul = document.getElementsByTagName('ul')[0]
+                    const frag = document.createDocumentFragment()
+                    success.forEach((element, index) => {
+                        const li = document.createElement('li')
+                        element.img.setAttribute('data-index', index)
+                        li.appendChild(element.img)
+                        frag.appendChild(li)
+                    })
+                    ul.appendChild(frag)
+                    status = 'loaded'
+                })
+            }
+        })
+        function isReachedBottom (el) {
+            console.log('el:\r\n', el)
+            console.log(el.scrollTop, el.clientHeight, el.scrollHeight)
+            return el.scrollTop + el.clientHeight + 50 >= el.scrollHeight 
+        }
+
+        bindEvent('ul', 'click', 'img', function(e) {
+            alert(this.getAttribute('data-index'))
+        })
+
+    </script>
+</body>
+</html>

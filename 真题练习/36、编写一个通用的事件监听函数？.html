@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编写一个通用的事件监听函数</title>
+</head>
+<body>
+    <script src="./libs/event.js"></script>
+    <script>
+        bindEvent('body', 'click',function(e) {
+            console.log(e.target.textContent)
+        })
+        
+        const frag = document.createDocumentFragment()
+        const max = 1 + Math.random() * 10 + 10
+        for (let i = 1; i < max; i++) {
+            const pEl = document.createElement('p')
+            pEl.textContent = i
+            pEl.style.border = '1px solid red'
+            frag.appendChild(pEl)
+        }
+        document.body.append(frag)
+    </script>
+</body>
+</html>

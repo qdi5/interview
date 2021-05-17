@@ -7,49 +7,10 @@
     <title>手写用Promise加载一张图片</title>
 </head>
 <body>
+    <script src="./libs/loadImg.js"></script>
     <script>
         const imgSrc = 'https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png'
-        function loadImg (src) {
-            const success = []
-            const failed = []
-            const pmArr = []
-            function getPromise(src) {
-                if (typeof src !== 'string') {
-                    return Promise.reject(`${src} is invalid`)
-                }
-                return new Promise((resolved, reject) => {
-                    const img = new Image()
-                    img.src = src
-                    img.onload = function(data) {
-                        resolved(img)
-                    }
-                    img.onerror = function(e) {
-                        reject(e)
-                    }
-                })
-            }
-            if (typeof src === 'string') {
-                pmArr.push(getPromise(src))
-            } else if (src instanceof Array) {
-                
-                for (let prop of src) {
-                    // [new Promise(), pmArr.push(Promise.resolve({success, failed}))]
-                    pmArr.push(getPromise(prop)) // 1、 pmArr.push(loadImg(src))
-                }
-               
-            }
-            pmArr.forEach((element, index) => {
-                    element.then(img => {
-                        console.log(`第${index + 1}张图片加载成功了`)
-                        success.push({index: index + 1, img})
-                    }).catch(e => {
-                        failed.push({index: index + 1, src: src[index]})
-                        console.log(`第${index + 1}张图片加载失败了`)
-                    })
-                })
-            return Promise.resolve({success, failed})
-            
-        }
+ 
        /*  loadImg(imgSrc).then(data => {
             console.log(data)
             document.body.append(data)
@@ -57,9 +18,14 @@
             console.log(e)
         }) */
 
-        const imgArr = ['https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png']
+        const imgArr = ['https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png','https://cdn.ahafe.tech/github/5eba8a2e0001c87011440168.png','https://cdn.ahafe.tech/github/5eba8a370001156813220256.png','https://cdn.ahafe.tech/github/closure.png', 'htt//123.com']
         loadImg(imgArr).then(data => {
             console.log(data)
+            const frag = document.createDocumentFragment()
+            data.success.forEach(element => {
+                frag.appendChild(element.img)
+            });
+            document.body.appendChild(frag)
         })
     </script>
 </body>

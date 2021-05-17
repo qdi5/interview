@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一次性插入多个DOM节点，考虑性能</title>
+</head>
+<body>
+    <script>
+        const pfg = document.createDocumentFragment()
+        for (let i = 0; i < 10; i++) {
+            const pe = document.createElement('p')
+            pe.textContent = i
+            pfg.appendChild(pe)
+        }
+        document.body.appendChild(pfg)
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分析拆解url各个部分</title>
+</head>
+<body>
+    <script>
+        const url = 'http://ahafe.tech/page/2?name=haha#id'
+        function splitUrl (url) {
+            const urlArr = url.split('?')
+            const uri = urlArr[0]
+            let params = urlArr[1]
+            const rest = params.split('#')
+            params = rest[0]
+            const anchor = rest[1]
+            const paramsArr = params.split('&')
+            const obj = {}
+            paramsArr.forEach(element => {
+                if (element !== '') {
+                    const pArr = element.split('=')
+                    const key = pArr[0]
+                    const value = pArr[1]
+                    obj[key] = value
+                }
+            });
+            obj.url = uri
+            obj.anchor = anchor
+            return obj
+        }
+        // console.log(splitUrl(url))
+
+        function getUrlParams (url) {
+            const anchorIndex = url.lastIndexOf('#')
+            if (anchorIndex !== -1) {
+                url = url.substring(0, anchorIndex)
+            }
+            const hasParams = url.lastIndexOf('?') !== -1
+            if (!hasParams) {
+                return null
+            }
+            const urlParams = url.split('?')[1]
+
+            const result = urlParams.match(/([^&])+=([^&])+/g)
+            if (!result) {
+                return null
+            }
+            const obj = {}
+            result.forEach(item => {
+                const arr = item.split('=')
+                const key = arr[0]
+                const value = arr[1]
+                obj[key] = value
+            })
+            return obj
+        }
+        console.log(getUrlParams(url))
+    </script>
+</body>
+</html>
