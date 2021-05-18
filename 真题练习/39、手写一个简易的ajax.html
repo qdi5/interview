@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写ajax</title>
+</head>
+<body>
+    <script src="./libs/ajax.js"></script>
+    <script>
+        // 展示列表的方式一
+       /*  ajax({
+            type: 'get',
+            url: 'http://music.ahafe.tech/api/personalized'
+        }).then(data => {
+            data = data.result
+            console.log('data:\r\n', data)
+            const ul = document.createElement('ul')
+            const frag = document.createDocumentFragment()
+            data.forEach(element => {
+                const li = document.createElement('li')
+                li.textContent = element.id + '、' + element.name
+                frag.appendChild(li)
+            });
+            ul.appendChild(frag)
+            document.body.appendChild(ul)
+        }).catch(e => {
+            console.error(e)
+        }) */
+
+        // 展示列表的方式二
+        ajax({
+            type: 'get',
+            url: 'http://music.ahafe.tech/api/personalized'
+        }).then(data => {
+            data = data.result
+            const ul = document.createElement('ul')
+            const result = data.reduce((element, current) => {
+               return  `${ element }<li>${ current.id }、${ current.name }</li>`
+            }, '');
+            ul.innerHTML = result
+            document.body.appendChild(ul)
+        }).catch(e => {
+            console.error(e)
+        })
+    </script>
+</body>
+</html>

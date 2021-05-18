@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONP</title>
+</head>
+<body>
+    <p>
+        1、JSONP
+            利用script标签能够跨域加载js脚本的原理，执行当前页面事先定义好的函数，将服务器的数据通过函数的形参传递进来。
+        2、CORS
+        3、反向代理
+    </p>
+
+    <script>
+        function wuzhe(data) {
+            console.log('JSONP获取的数据：\r\n', data)
+        }
+    </script>
+    <script src="./libs/jsonp.js"></script>
+    <script>
+        jsonp({url: 'http://127.0.0.1:3000/jsonp?ahafe=xxx#id=123', params: {
+            name: '林耿贤',
+            age: 18,
+            salary: 9500
+        }}, function(data){
+            console.log('jsonp：')
+            console.log(data)
+        })
+    </script>
+</body>
+</html>
+
