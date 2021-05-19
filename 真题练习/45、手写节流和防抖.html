@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            height: 10000px;
+        }
+    </style>
+</head>
+<body>
+    <script src="./libs/event.js"></script>
+    <script>
+        /**
+         * 节流：
+         * 两次执行fn函数的间隔，至少是delay毫秒
+         * **/
+        function throttle(fn, delay=0) {
+            let last = 0
+            return function () {
+                const now = Date.now()
+                if (now - last >= delay) {
+                    fn.apply(this, arguments)
+                    last = now
+                }
+            }
+        }
+
+        /*  
+            防抖：
+            在delay时间内，频繁触发事件，以最后一次执行为准
+        
+        */
+        function debounce (fn, delay = 0) {
+            let timer = null
+            return function () {
+                if (timer) {
+                    console.log('清除timer：', timer)
+                    clearTimeout(timer)
+                } 
+                timer = setTimeout(() => {
+                    fn.apply(this, arguments)
+                }, delay)
+            }
+        }
+
+
+        let index = 0
+        /* bindEvent(window, 'scroll', function(e){
+            console.log(++index)
+        }) */
+
+        bindEvent(window, 'scroll', debounce(function(e){
+            console.log(++index)
+        }, 500))
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png" alt="">
+    <img src="https://cdn.ahafe.tech/github/5eba8a2e0001c87011440168.png" alt="">
+    <img src="https://cdn.ahafe.tech/github/5eba8a370001156813220256.png" alt="">
+    <p>window.onload等待页面的所有静态资源加载完毕后才触发</p>
+    <p>DOMContentLoaded是当dom的结构确定好之后就触发了</p>
+    <script>
+        window.onload = function(){
+            console.log('all loaded')
+        }
+
+        window.addEventListener('DOMContentLoaded', function(){
+            console.log('DOMContentLoaded')
+        })
+    </script>
+</body>
+</html>

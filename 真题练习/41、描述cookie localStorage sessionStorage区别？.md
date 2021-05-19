@@ -1,0 +1,2 @@
+1、cookie存储空间小；localStorage、sessionStorage存储空间最大有5M
+2、cookie会发送到服务器；localStorage不会
