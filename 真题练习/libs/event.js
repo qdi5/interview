@@ -9,7 +9,7 @@ function bindEvent(el, eventName, selector, fn, isCapture){
         const temp = fn
         fn = selector
         selector = void (0)
-        isCapture = typeof temp === void (0) ? isCapture : temp
+        isCapture = typeof temp === void (0) ? false : temp
     } else {
         isCapture = typeof isCapture === 'undefined' ? false : isCapture 
     }
