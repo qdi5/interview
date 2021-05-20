@@ -9,7 +9,7 @@ function bindEvent(el, eventName, selector, fn, isCapture){
         const temp = fn
         fn = selector
         selector = void (0)
-        isCapture = typeof temp === void (0) ? false : temp
+        isCapture = typeof temp === 'undefined' ? false : temp
     } else {
         isCapture = typeof isCapture === 'undefined' ? false : isCapture 
     }
@@ -33,7 +33,7 @@ function bindEvent(el, eventName, selector, fn, isCapture){
                 e.target： 事件触发的元素
                 e.currentTarget：事件正在经过的元素
                 console.log(this, target, e.currentTarget, this === target && this === e.currentTarget)
-                e.target === e.currentTarget 说明当前触发的元素，就是绑定事件的元素
+                e.target === e.currentTarget 说明当前触发事件的元素，就是绑定事件的元素
             */
             /*  如果是事件代理，则判断触发事件的元素，是否是指定的选择器selector；
                 只有匹配指定的选择器，才触发事件的回调函数（不可能el的任意一个子元素触发事件都执行回调）；
