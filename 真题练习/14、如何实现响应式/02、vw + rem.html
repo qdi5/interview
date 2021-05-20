@@ -6,10 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>如何实现响应式？</title>
     <style>
+        /*  
+            iphone 6屏幕为基准：
+            1vw = designWidth / 100 = 3.75px
+            设置根元素的font-size为5.333333vw；则：
+            1rem = 5.333333vw = 5.333333 * designWidth / 100 px = 0.05333333 * designWidth px
+            所以：
+            1px = 1 / (0.05333333 *designWidth) rem
+            1rem = 5.333333vw 
+
+            function pxtorem (pxNumber) {
+                return pxNumber / (0.05333333 * designWidth) rem
+            }
+        */
         :root {
             font-size: 20px;
             /* 在iphone6的屏幕下，约等于20px */
-            font-size: 5.333333vw; 
+            font-size: 5.333333vw;
         }
         /* iphone5及以下 */
         @media screen and (max-width: 320px) {
