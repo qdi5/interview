@@ -18,7 +18,7 @@
          * 节流：
          * 两次执行fn函数的间隔，至少是delay毫秒
          * **/
-        function throttle(fn, delay=0) {
+        /* function throttle(fn, delay=0) {
             let last = 0
             return function () {
                 const now = Date.now()
@@ -27,8 +27,20 @@
                     last = now
                 }
             }
+        } */
+        function throttle(fn, delay = 100) {
+            let timer = null
+            return function () {
+                if (timer) {
+                    return
+                }
+                timer = setTimeout(() => {
+                    console.log('新throttle')
+                    fn.apply(this, arguments)
+                    timer = null
+                }, delay)
+            }
         }
-
         /*  
             防抖：
             在delay时间内，频繁触发事件，以最后一次执行为准
@@ -43,6 +55,7 @@
                 } 
                 timer = setTimeout(() => {
                     fn.apply(this, arguments)
+                    timer = null
                 }, delay)
             }
         }
@@ -53,7 +66,7 @@
             console.log(++index)
         }) */
 
-        bindEvent(window, 'scroll', debounce(function(e){
+        bindEvent(window, 'scroll', throttle(function(e){
             console.log(++index)
         }, 500))
 
