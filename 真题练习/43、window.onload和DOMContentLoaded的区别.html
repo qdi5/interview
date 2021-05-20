@@ -10,8 +10,8 @@
     <img src="https://cdn.ahafe.tech/github/5eba87ef00015a1e13141002.png" alt="">
     <img src="https://cdn.ahafe.tech/github/5eba8a2e0001c87011440168.png" alt="">
     <img src="https://cdn.ahafe.tech/github/5eba8a370001156813220256.png" alt="">
-    <p>window.onload等待页面的所有静态资源加载完毕后才触发</p>
-    <p>DOMContentLoaded是当dom的结构确定好之后就触发了</p>
+    <p>window.onload页面的全部资源加载完才会执行，包括图片、视频等</p>
+    <p>DOMContentLoaded是当dom渲染完即可执行，此时图片、视频还可能没有加载完</p>
     <script>
         window.onload = function(){
             console.log('all loaded')
