@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        * {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>           
+
+    <script>
+        function hide(e){
+  e.currentTarget.style.visibility = "hidden";
+  console.log(e.currentTarget);
+  // 该函数用作事件处理器时: this === e.currentTarget
+}
+
+var ps = document.getElementsByTagName('p');
+
+for(var i = 0; i < ps.length; i++){
+  // console: 打印被点击的p元素
+  ps[i].addEventListener('click', hide, false);
+}
+// console: 打印body元素
+document.body.addEventListener('click', hide, false);
+    </script>
+</body>
+</html>
