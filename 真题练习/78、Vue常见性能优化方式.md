@@ -1,0 +1,9 @@
+合理使用v-show和v-if
+合理使用computed
+v-for时加key，以及避免和v-if同时使用
+自定义事件、DOM事件及时销毁
+合理使用异步组件
+合理使用keep-alive
+data层级不要太深
+使用vue-loader在开发环境做模板编译（预编译）
+使用SSR

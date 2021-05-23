@@ -1,0 +1,3 @@
+action中处理异步，mutation不可以
+mutation做原子操作
+action可以整合多个mutation

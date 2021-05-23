@@ -1,0 +1,3 @@
+mounted
+js是单线程，ajax异步获取数据
+放在mounted之前没有用，只会让逻辑更混乱
