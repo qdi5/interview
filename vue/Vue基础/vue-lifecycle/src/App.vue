@@ -6,18 +6,21 @@
 
     <List v-if="isShow" :list="list" @delete="deleteHandler"/>
     <button @click="isShow = false">销毁List</button>
+    <parent></parent>
   </div>
 </template>
 
 <script>
 import Input from './components/Input.vue'
 import List from './components/List.vue'
+import Parent from './components/scope-slot/parent.vue'
 
 export default {
   name: 'App',
   components: {
     List,
-    Input
+    Input,
+    Parent
   },
   data () {
     return {

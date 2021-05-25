@@ -21,6 +21,12 @@ export default {
       event.$emit('onAddTitle', this.title)
       this.title = ''
     }
+  },
+  created () {
+    console.log('Input created')
+  },
+  mounted () {
+    console.log('Input mounted')
   }
 }
 </script>
