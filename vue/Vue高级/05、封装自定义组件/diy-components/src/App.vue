@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <Uploader v-model="imgsList">
-        <div>选择文件</div>
-      </Uploader>
+      <div>
+        <h2>h5上传组件</h2>
+        <Uploader v-model="imgsList"></Uploader>
+        <Uploader v-model="imgsList2" helpText="选择文件">
+          <div>选择文件</div>
+        </Uploader>
+      </div>
     </div>
     <router-view/>
   </div>
@@ -15,7 +17,8 @@ import Uploader from 'common/Uploader'
 export default {
   data () {
     return {
-      imgsList: []
+      imgsList: [],
+      imgsList2: []
     }
   },
   components: {

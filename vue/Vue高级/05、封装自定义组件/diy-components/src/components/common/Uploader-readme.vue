@@ -17,37 +17,7 @@ function _readFile (file, resultType) {
     }
   })
 }
-// 转换为数组
-function toArray (item) {
-  if (Array.isArray(item)) {
-    return item
-  }
-  return [item]
-}
-// 复制，继承属性
-function _extends () {
-  const __temp =
-    Object.assign ||
-    function (target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i]
 
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key]
-          }
-        }
-      }
-      return target
-    }
-  return __temp.apply(this, arguments)
-}
-// 只要有一个文件的size值大于maxSize，则返回true
-export function isOversize (files, maxSize) {
-  return toArray(files).some(function (file) {
-    return file.size > maxSize
-  })
-}
 export default {
   name: 'uploader',
   model: {
@@ -76,16 +46,12 @@ export default {
       type: String,
       default: 'dataUrl'
     },
-    // 读取文件之后触发的函数
-    afterRead: Function,
-    // 读取文件之前调用的函数
-    beforeRead: Function,
     // 最大数量
     maxCount: {
       type: Number,
       default: Number.MAX_VALUE
     },
-    // 文件大小控制
+    // 单文件大小控制
     maxSize: {
       type: Number,
       default: Number.MAX_VALUE
@@ -106,17 +72,14 @@ export default {
       if (name === undefined) {
         name = 'default'
       }
-      // 插槽
-      var $slots = this.$slots
-      console.log('$slots:', $slots)
-      debugger
       // 作用域插槽
       var $scopedSlots = this.$scopedSlots
       var scopedSlot = $scopedSlots[name]
-      console.dir(scopedSlot)
       if (scopedSlot) {
+        // 当没有作用域插槽时，这里取的就是默认插槽，实际上就是一个VNode
         return scopedSlot(props)
       }
+      return scopedSlot
     },
     // 3
     onChange: function onChange (event) {
@@ -260,7 +223,6 @@ export default {
       }
       //
       var slot = this.slots()
-      debugger
       // 获取组件中，除了props的其他属性（不包含class和style）
       var existAttrs = this.$attrs
       var extendAtrrs = {

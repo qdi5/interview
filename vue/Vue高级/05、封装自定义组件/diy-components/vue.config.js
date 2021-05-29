@@ -5,6 +5,9 @@ function resolve(dir) {
 module.exports = {
   chainWebpack: function(config) {
     config.resolve.alias.set('common', resolve('components/common'))
+  },
+  devServer: {
+    open: true
   }
 
 
