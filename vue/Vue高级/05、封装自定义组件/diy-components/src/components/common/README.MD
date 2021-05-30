@@ -71,3 +71,18 @@
   }  
 ```
 `children`：子级虚拟节点，由createElement()构建而成，也可以使用字符串来生成"文本虚拟节点"
+
+4、核心思路
+createElement()渲染预览区域和上传区域，选择文件后，使用FileReader读取文件内容，如果是图片则在预览区域，以base64编码格式的字符串显示图片；如果是文件类型，则不预览，只是把数据放入到组件v-model绑定的变量里；    
+props：
+  fileList：v-model绑定的变量；类型是数组
+  resultType：读取文件后返回的数据类型
+  maxCount：最大数量
+  maxSize：单个文件最大值
+  previewSize：预览区域和上传组件显示大小
+
+slot：
+  上传文件时，自定义选择文件的样式
+$emit：
+  删除文件自定义事件"delete"
+  添加文件与删除文件，触发"input"自定义事件
