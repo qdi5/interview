@@ -51,7 +51,8 @@ export function isOversize (files, maxSize) {
 export default {
   name: 'uploader',
   model: {
-    prop: 'fileList'
+    prop: 'fileList',
+    event: 'input'
   },
   props: {
     // input元素的name属性对应的值
