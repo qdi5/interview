@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>十进制转二进制</title>
+</head>
+<body>
+    <script>
+        function tenTo2 (i) {
+            const ary = []
+            while(i != 0) {
+                ary.push(i%2)
+                console.log(i%2)
+                i = parseInt(i/2)
+            }
+            let s = ''
+            let length = ary.length
+            while(length--) {
+                s += ary.pop()
+                
+            }
+            console.log(s)
+            return s
+        }
+        tenTo2(100)
+        
+    </script>
+</body>
+</html>

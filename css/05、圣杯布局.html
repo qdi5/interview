@@ -28,12 +28,18 @@
             position: relative;
             background-color: yellow;
             width: 200px;
+            /* margin-left: -100%；也就是center的宽度 */
             margin-left: -100%;
+            /* 相对于自身向左偏移自身的宽度 */
             right: 200px;
         }
         #right {
             background-color: red;
             width: 150px;
+            /* 
+                margin-right为负值，则后面的元素会被拉到左边；
+                也可以认为自身的宽度减少了150px，也就是宽度为0了。
+             */
             margin-right: -150px;
         }
         #footer {

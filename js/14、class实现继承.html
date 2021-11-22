@@ -37,6 +37,12 @@
                 console.log(`${this.name} 教授 ${this.major}`)
             }
         }
+        /*
+            在js中，每个构造函数都有一个prototype属性，它指向构造函数的原型对象，这个
+            原型对象中有个constructor属性指回构造函数。
+            每个实例都有一个__proto__属性，当我们使用构造函数去创建实例时，
+            实例的__proto__属性就会指向构造函数的原型对象
+        */
     </script>
 </body>
 </html>
