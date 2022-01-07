@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1"></div>
+    <script>
+        document.body.onload = addElement;
+
+        function addElement () {
+        // 创建一个新的 div 元素
+        let newDiv = document.createElement("a");
+        // 给它一些内容
+        let newContent = document.createTextNode("Hi there and greetings!");
+        // 添加文本节点 到这个新的 div 元素
+        newDiv.appendChild(newContent);
+
+        // 将这个新的元素和它的文本添加到 DOM 中
+        let currentDiv = document.getElementById("div1");
+        document.body.insertBefore(newDiv, currentDiv);
+}
+(function () {
+    for (var i = 0; i < 10; i++) {
+        debugger;
+        let aElement =  document.createElement("a")
+        const text = document.createTextNode(`按钮${ i + 1 }    `)
+        aElement.appendChild(text)
+        let body = document.body || document.documentElement
+        body.appendChild(aElement)
+        aElement.onclick = (function (i) {
+           return function () {
+                alert(i + 1)
+            }
+        })(i)
+    }
+     
+})()
+
+
+    </script>
+</body>
+</html>

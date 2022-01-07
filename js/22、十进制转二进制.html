@@ -11,20 +11,24 @@
         function tenTo2 (i) {
             const ary = []
             while(i != 0) {
+                // 余数存入数组
                 ary.push(i%2)
-                console.log(i%2)
+                // console.log(i%2)
+                // 取到商的值（不要余数）
                 i = parseInt(i/2)
             }
             let s = ''
             let length = ary.length
             while(length--) {
                 s += ary.pop()
-                
             }
-            console.log(s)
+            //console.log(s)
             return s
         }
-        tenTo2(100)
+        
+        console.log(tenTo2(1000))
+        // 二进制转十进制
+        console.log(parseInt(1100, 2))
         
     </script>
 </body>
